@@ -55,8 +55,11 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":network"))
+    testImplementation(project(":test-common"))
 
     testImplementation(libs.junit)
+    testImplementation(libs.bundles.kotlin.testing.tools)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

@@ -16,10 +16,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 internal class CountryListViewModel @Inject constructor(
-    private val repository: CountryListRepository
+    private val repository: CountryListRepository,
+    private val coroutineDispatcher: CoroutineContext
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<CountryListUiState> =
@@ -27,16 +29,12 @@ internal class CountryListViewModel @Inject constructor(
 
     val uiState: StateFlow<CountryListUiState> = _uiState.asStateFlow()
 
-    init {
-        getCountryList()
-    }
-
     fun getCountryList() {
         repository.getCountries()
             .onStart { _uiState.update { CountryListUiState.Loading } }
             .onEach { countries -> _uiState.update { CountryListUiState.ShowCountryList(data = countries) } }
             .catch { _uiState.update { CountryListUiState.ShowError } }
-            .flowOn(Dispatchers.IO)
+            .flowOn(coroutineDispatcher)
             .launchIn(viewModelScope)
     }
 
@@ -45,7 +43,7 @@ internal class CountryListViewModel @Inject constructor(
             .onStart { _uiState.update { CountryListUiState.Loading } }
             .onEach { countries -> _uiState.update { CountryListUiState.ShowCountryList(data = countries) } }
             .catch { _uiState.update { CountryListUiState.ShowError } }
-            .flowOn(Dispatchers.IO)
+            .flowOn(coroutineDispatcher)
             .launchIn(viewModelScope)
     }
 }

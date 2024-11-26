@@ -1,4 +1,4 @@
-package com.john.countrylist.domain.mappers
+package com.john.countrylist.domain.mapper
 
 import com.john.core.extensions.requireNotEmptyNotNull
 import com.john.countrylist.data.models.CountryDTO
@@ -14,6 +14,7 @@ internal class CountryMapper @Inject constructor() {
                 flags = mapFlags(input.flags)
             )
         } catch (exception: IllegalArgumentException) {
+            // If we need to track something, this is the place
             throw exception
         }
     }

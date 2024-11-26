@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.john.countrydetail.domain.repository.CountryDetailRepository
 import com.john.countrydetail.ui.states.CountryDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,10 +15,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 internal class CountryDetailViewModel @Inject constructor(
-    private val countryDetailRepository: CountryDetailRepository
+    private val countryDetailRepository: CountryDetailRepository,
+    private val coroutineContext: CoroutineContext
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<CountryDetailUiState> =
@@ -35,7 +36,7 @@ internal class CountryDetailViewModel @Inject constructor(
                 _uiState.update { CountryDetailUiState.ShowError }
                 println(it)
             }
-            .flowOn(Dispatchers.IO)
+            .flowOn(coroutineContext)
             .launchIn(viewModelScope)
     }
 }

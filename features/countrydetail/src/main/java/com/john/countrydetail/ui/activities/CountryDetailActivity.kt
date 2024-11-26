@@ -1,9 +1,7 @@
 package com.john.countrydetail.ui.activities
 
 import android.os.Bundle
-import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
@@ -31,6 +29,7 @@ class CountryDetailActivity : FragmentActivity() {
         _binding = CountryDetailActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         bindViewModel()
+        setListeners()
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -56,7 +55,11 @@ class CountryDetailActivity : FragmentActivity() {
             }
 
             is CountryDetailUiState.ShowDetail -> {
-                binding.progressCircular.isVisible = false
+                with(binding) {
+                    progressCircular.isVisible = false
+                    imageViewClose.isVisible = true
+                }
+
                 renderCountryDetail(state.data)
             }
 
@@ -71,6 +74,10 @@ class CountryDetailActivity : FragmentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun setListeners() {
+        binding.imageViewClose.setOnClickListener { finish() }
     }
 
     private fun renderCountryDetail(data: CountryDetail) {
@@ -98,82 +105,64 @@ class CountryDetailActivity : FragmentActivity() {
     }
 
     private fun renderCardDriveSide(car: CountryDetail.Car) {
-        val carSideText = getString(
-            R.string.country_detail_item_placeholder,
-            getString(R.string.country_detail_car_drive_side),
-            car.side
-        )
-        renderHtml(binding.carSideTextView, carSideText)
+        with(binding) {
+            carSideTextView.text = getString(R.string.country_detail_car_drive_side)
+            carSideValueTextView.text = car.side
+        }
     }
 
     private fun renderPopulation(population: Long) {
-        val populationText = getString(
-            R.string.country_detail_item_number_placeholder,
-            getString(R.string.country_detail_population),
-            population
-        )
-        renderHtml(binding.populationTextView, populationText)
+        with(binding) {
+            populationTextView.text = getString(R.string.country_detail_population)
+            populationValueTextView.text = population.toString()
+        }
     }
 
     private fun renderRegion(region: String?) {
-        val regionText = getString(
-            R.string.country_detail_item_placeholder,
-            getString(R.string.country_detail_region),
-            region
-        )
-        renderHtml(binding.regionTextView, regionText)
+        with(binding) {
+            regionTextView.text = getString(R.string.country_detail_region)
+            regionValueTextView.text = region
+        }
     }
 
     private fun renderSubregion(subregion: String?) {
-        val subregionText = getString(
-            R.string.country_detail_item_placeholder,
-            getString(R.string.country_detail_subregion),
-            subregion
-        )
-        renderHtml(binding.subregionTextView, subregionText)
+        with(binding) {
+            subregionTextView.text = getString(R.string.country_detail_subregion)
+            subregionValueTextView.text = subregion
+        }
     }
 
     private fun renderCapital(capital: String) {
-        val capitalText = getString(
-            R.string.country_detail_item_placeholder,
-            getString(R.string.country_detail_capital),
-            capital
-        )
-        renderHtml(binding.capitalTextView, capitalText)
+        with(binding) {
+            capitalTextView.text = getString(R.string.country_detail_capital)
+            capitalValueTextView.text = capital
+        }
     }
 
     private fun renderCurrencies(currencies: Map<String, CountryDetail.Currency>) {
         val currency = currencies.values.joinToString { "${it.symbol.uppercase()} (${it.name})" }
-        val currenciesText = getString(
-            R.string.country_detail_item_placeholder,
-            getString(R.string.country_detail_currencies),
-            currency
-        )
-        renderHtml(binding.currenciesTextView, currenciesText)
+        with(binding) {
+            currenciesTextView.text = getString(R.string.country_detail_currencies)
+            currenciesValueTextView.text = currency
+        }
     }
 
     private fun renderLanguages(languages: Map<String, String>) {
         val languagesText = languages.values.joinToString(separator = ",")
-        val languageString = getString(
-            R.string.country_detail_item_placeholder,
-            getString(R.string.country_detail_languages),
-            languagesText
-        )
-        renderHtml(binding.languagesTextView, languageString)
+        with(binding) {
+            languagesTextView.text = getString(R.string.country_detail_languages)
+            languagesValueTextView.text = languagesText
+        }
     }
 
     private fun renderCoatOfArms(coatOfArms: CountryDetail.CoatOfArms) {
         if (coatOfArms.png.isNotEmpty()) {
-            binding.coatOfArmsTextView.text = HtmlCompat.fromHtml(
-                getString(R.string.country_detail_coat_at_arms),
-                HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
-            Glide.with(this).load(coatOfArms.png).into(binding.coatOfArmsImageView)
+            with(binding) {
+                coatOfArmsTextView.text = getString(R.string.country_detail_coat_at_arms)
+                Glide.with(this@CountryDetailActivity).load(coatOfArms.png)
+                    .into(coatOfArmsImageView)
+            }
         }
-    }
-
-    private fun renderHtml(textView: TextView, text: String) {
-        textView.text = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
     }
 
     companion object {

@@ -27,7 +27,8 @@ import kotlinx.coroutines.delay
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CountryListSearchScreen(
-    onQueryChanged: (query: String) -> Unit
+    onQueryChanged: (query: String) -> Unit,
+    onRetry: () -> Unit
 ) {
     var query by remember { mutableStateOf(TextFieldValue("")) }
 
@@ -69,10 +70,14 @@ fun CountryListSearchScreen(
         onValueChange = { query = it }
     )
 
+    // Prevents unnecessary network request
     LaunchedEffect(query) {
-        if (query.text.isBlank()) return@LaunchedEffect
-        delay(2000)
-        onQueryChanged.invoke(query.text)
-        query = query.copy(text = "")
+        if (query.text.isEmpty()) {
+            onRetry.invoke()
+        }
+        delay(800)
+        if (query.text.length >= 2) {
+            onQueryChanged.invoke(query.text)
+        }
     }
 }

@@ -3,14 +3,12 @@ package com.john.countrylist.domain.repository
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import com.john.countrylist.data.api.CountryListApi
 import com.john.countrylist.data.models.CountryDTO
-import com.john.countrylist.domain.mappers.CountryMapper
-import com.john.countrylist.domain.models.Country
+import com.john.countrylist.domain.mapper.CountryMapper
 import com.john.countrylist.domain.repository.impl.CountryListRepositoryImpl
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -28,9 +26,7 @@ class CountryListRepositoryTest {
     @MockK
     private lateinit var countryListApi: CountryListApi
 
-    @MockK
-    private lateinit var mapper: CountryMapper
-
+    private val mapper = CountryMapper()
     private lateinit var repository: CountryListRepository
 
     @Before
@@ -47,7 +43,6 @@ class CountryListRepositoryTest {
     @Test
     fun `Getting countries should call api service properly`() = runTest {
         coEvery { countryListApi.getCountries() }.returns(listOf(response))
-        every { mapper.map(response) }.returns(businessModel)
 
         val response = repository.getCountries().first()
 
@@ -58,7 +53,6 @@ class CountryListRepositoryTest {
     @Test
     fun `Getting countries by queries should call api service properly`() = runTest {
         coEvery { countryListApi.getCountriesByQuery(query = "Something") }.returns(listOf(response))
-        every { mapper.map(response) }.returns(businessModel)
 
         val response = repository.getCountriesByQuery("Something").first()
 
@@ -85,18 +79,6 @@ class CountryListRepositoryTest {
             name = name,
             capital = listOf(CAPITAL),
             flags = flags
-        )
-
-        val businessModel = Country(
-            name = Country.Name(
-                common = COMMON,
-                official = OFFICIAL
-            ),
-            capital = listOf(CAPITAL),
-            flags = Country.Flags(
-                png = PNG,
-                svg = SVG
-            )
         )
     }
 }

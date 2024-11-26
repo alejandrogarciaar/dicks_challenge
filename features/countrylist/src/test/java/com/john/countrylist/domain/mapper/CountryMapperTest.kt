@@ -1,4 +1,4 @@
-package com.john.countrylist.domain.mappers
+package com.john.countrylist.domain.mapper
 
 import com.john.countrylist.data.models.CountryDTO
 import com.john.countrylist.domain.models.Country
@@ -17,7 +17,7 @@ class CountryMapperTest {
     }
 
     @Test
-    fun `Mapping CountryDTO should retrieve business model if all attributes exist`() {
+    fun `Mapping Country should retrieve business model if all attributes exist`() {
         val businessModel = mapper.map(response)
 
         assertEquals(
@@ -37,7 +37,7 @@ class CountryMapperTest {
     }
 
     @Test
-    fun `Mapping CountryDTO should throw IllegalArgument exception when name common is null`() {
+    fun `Mapping Country should throw IllegalArgument exception when name common is null`() {
         val name = name.copy(common = null)
         val newResponse = response.copy(name = name)
 
@@ -47,7 +47,7 @@ class CountryMapperTest {
     }
 
     @Test
-    fun `Mapping CountryDTO should throw IllegalArgument exception when name common is empty`() {
+    fun `Mapping Country should throw IllegalArgument exception when name common is empty`() {
         val name = name.copy(common = "")
         val newResponse = response.copy(name = name)
 
@@ -57,7 +57,7 @@ class CountryMapperTest {
     }
 
     @Test
-    fun `Mapping CountryDTO should throw IllegalArgument exception when name official is null`() {
+    fun `Mapping Country should throw IllegalArgument exception when name official is null`() {
         val name = name.copy(official = null)
         val newResponse = response.copy(name = name)
 
@@ -67,7 +67,7 @@ class CountryMapperTest {
     }
 
     @Test
-    fun `Mapping CountryDTO should throw IllegalArgument exception when name official is empty`() {
+    fun `Mapping Country should throw IllegalArgument exception when name official is empty`() {
         val name = name.copy(official = "")
         val newResponse = response.copy(name = name)
 
@@ -77,7 +77,7 @@ class CountryMapperTest {
     }
 
     @Test
-    fun `Mapping CountryDTO should throw IllegalArgument exception when flags png is null`() {
+    fun `Mapping Country should throw IllegalArgument exception when flags png is null`() {
         val flags = flags.copy(png = null)
         val newResponse = response.copy(flags = flags)
 
@@ -87,7 +87,7 @@ class CountryMapperTest {
     }
 
     @Test
-    fun `Mapping CountryDTO should throw IllegalArgument exception when flags png is empty`() {
+    fun `Mapping Country should throw IllegalArgument exception when flags png is empty`() {
         val flags = flags.copy(png = "")
         val newResponse = response.copy(flags = flags)
 
@@ -97,7 +97,7 @@ class CountryMapperTest {
     }
 
     @Test
-    fun `Mapping CountryDTO should throw IllegalArgument exception when flags svg is null`() {
+    fun `Mapping Country should throw IllegalArgument exception when flags svg is null`() {
         val flags = flags.copy(svg = null)
         val newResponse = response.copy(flags = flags)
 
@@ -107,7 +107,7 @@ class CountryMapperTest {
     }
 
     @Test
-    fun `Mapping CountryDTO should throw IllegalArgument exception when flags svg is empty`() {
+    fun `Mapping Country should throw IllegalArgument exception when flags svg is empty`() {
         val flags = flags.copy(svg = "")
         val newResponse = response.copy(flags = flags)
 

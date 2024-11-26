@@ -42,6 +42,7 @@ class CountryListViewModelTest {
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         MockKAnnotations.init(this@CountryListViewModelTest, relaxed = true)
+        viewModel = CountryListViewModel(repository, testDispatcher)
     }
 
     @After
@@ -50,22 +51,18 @@ class CountryListViewModelTest {
         clearAllMocks()
     }
 
-    private fun buildViewModel() {
-        viewModel = CountryListViewModel(repository)
-    }
-
     @Test
     fun `Getting country list should notify ui state properly`() = runTest {
         val result = arrayListOf<CountryListUiState>()
         coEvery { repository.getCountries() }.returns(flowOf(listOf(businessModel)))
-        buildViewModel()
 
         val job = launch(testDispatcher) { viewModel.uiState.toList(result) }
+        viewModel.getCountryList()
         job.cancel()
 
-        assertEquals(1, result.size)
+        assertEquals(2, result.size)
         assertTrue(
-            (result.first() as? CountryListUiState.ShowCountryList)?.data == listOf(businessModel)
+            (result.last() as? CountryListUiState.ShowCountryList)?.data == listOf(businessModel)
         )
     }
 
@@ -74,13 +71,13 @@ class CountryListViewModelTest {
         runTest {
             val result = arrayListOf<CountryListUiState>()
             coEvery { repository.getCountries() }.returns(flow { throw Exception("Something went wrong") })
-            buildViewModel()
 
             val job = launch(testDispatcher) { viewModel.uiState.toList(result) }
+            viewModel.getCountryList()
             job.cancel()
 
-            assertEquals(1, result.size)
-            assertTrue(result.first() is CountryListUiState.ShowError)
+            assertEquals(2, result.size)
+            assertTrue(result.last() is CountryListUiState.ShowError)
         }
 
     @Test
@@ -94,7 +91,6 @@ class CountryListViewModelTest {
                 )
             )
         )
-        buildViewModel()
 
         val job = launch(testDispatcher) { viewModel.uiState.toList(result) }
         viewModel.getCountriesByQuery("Query")
@@ -111,9 +107,7 @@ class CountryListViewModelTest {
     fun `Getting country list by query should notify error ui state properly when repository fails`() =
         runTest {
             val result = arrayListOf<CountryListUiState>()
-            coEvery { repository.getCountries() }.returns(flowOf(listOf(businessModel)))
             coEvery { repository.getCountriesByQuery("Query") }.returns(flow { throw Exception("Something went wrong") })
-            buildViewModel()
 
             val job = launch(testDispatcher) { viewModel.uiState.toList(result) }
             viewModel.getCountriesByQuery("Query")

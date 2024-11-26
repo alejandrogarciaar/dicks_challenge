@@ -24,5 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.john.countrydetail.ui.activities.CountryDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.DicksTest" />
     </application>
 </manifest>

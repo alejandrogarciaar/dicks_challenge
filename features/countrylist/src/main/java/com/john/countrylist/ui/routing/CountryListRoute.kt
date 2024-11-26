@@ -24,7 +24,12 @@ internal fun CountryListRoute(
     actions: CountryListScreenActions
 ) {
     Scaffold(
-        topBar = { CountryListSearchScreen(onQueryChanged = actions.onQueryChanged) },
+        topBar = {
+            CountryListSearchScreen(
+                onQueryChanged = { query -> actions.onQueryChanged.invoke(query) },
+                onRetry = { actions.onRetryClicked.invoke() }
+            )
+        },
         content = { paddingValues ->
             val uiState: CountryListUiState by viewModel.uiState.collectAsStateWithLifecycle()
             when (uiState) {

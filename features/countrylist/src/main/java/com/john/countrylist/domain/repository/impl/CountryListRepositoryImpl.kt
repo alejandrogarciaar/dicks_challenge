@@ -1,7 +1,7 @@
 package com.john.countrylist.domain.repository.impl
 
 import com.john.countrylist.data.api.CountryListApi
-import com.john.countrylist.domain.mappers.CountryMapper
+import com.john.countrylist.domain.mapper.CountryMapper
 import com.john.countrylist.domain.models.Country
 import com.john.countrylist.domain.repository.CountryListRepository
 import kotlinx.coroutines.flow.Flow

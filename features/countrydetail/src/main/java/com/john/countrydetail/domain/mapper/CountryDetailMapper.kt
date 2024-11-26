@@ -1,4 +1,4 @@
-package com.john.countrydetail.domain.mappers
+package com.john.countrydetail.domain.mapper
 
 import com.john.core.extensions.requireNotEmptyNotNull
 import com.john.countrydetail.data.models.CountryDetailDTO
@@ -7,24 +7,29 @@ import javax.inject.Inject
 
 internal class CountryDetailMapper @Inject constructor() {
     fun map(input: CountryDetailDTO): CountryDetail {
-        return CountryDetail(
-            name = mapName(input.name),
-            flags = mapFlags(input.flags),
-            currencies = mapCurrencies(input.currencies),
-            capital = input.capital,
-            region = input.region.requireNotEmptyNotNull("region"),
-            subregion = input.subregion.orEmpty(),
-            languages = input.languages,
-            population = input.population,
-            car = mapCar(input.car),
-            coatOfArms = mapCoatOfArms(input.coatOfArms)
-        )
+        return try {
+            CountryDetail(
+                name = mapName(input.name),
+                flags = mapFlags(input.flags),
+                currencies = mapCurrencies(input.currencies),
+                capital = input.capital,
+                region = input.region.requireNotEmptyNotNull("region"),
+                subregion = input.subregion.orEmpty(),
+                languages = input.languages,
+                population = input.population,
+                car = mapCar(input.car),
+                coatOfArms = mapCoatOfArms(input.coatOfArms)
+            )
+        } catch (exception: IllegalArgumentException) {
+            // If we need to track something, this is the place
+            throw exception
+        }
     }
 
     private fun mapFlags(input: CountryDetailDTO.FlagsDTO): CountryDetail.Flags {
         return CountryDetail.Flags(
             png = input.png.requireNotEmptyNotNull("flags.png"),
-            svg = input.png.requireNotEmptyNotNull("flags.svg")
+            svg = input.svg.requireNotEmptyNotNull("flags.svg")
         )
     }
 

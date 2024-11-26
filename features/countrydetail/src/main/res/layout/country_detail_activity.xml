@@ -17,6 +17,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/image_view_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_close"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <ImageView
         android:id="@+id/flag_image_view"
         android:layout_width="180dp"
         android:layout_height="130dp"
@@ -50,79 +62,162 @@
         app:layout_constraintTop_toBottomOf="@+id/flag_image_view"
         tools:text="Republic of Ireland" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/capital_text_view"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/common_name_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/common_name_text_view"
+        tools:text="Capital -" />
+
+    <TextView
+        android:id="@+id/capital_value_text_view"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="12dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/capital_text_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/common_name_text_view">
+        app:layout_constraintStart_toEndOf="@+id/capital_text_view"
+        tools:text="Dublin" />
 
-        <TextView
-            android:id="@+id/capital_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            tools:text="Capital - Dublin" />
+    <TextView
+        android:id="@+id/region_text_view"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/capital_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/capital_text_view"
+        tools:text="Region -" />
 
-        <TextView
-            android:id="@+id/region_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="Region - Europe" />
+    <TextView
+        android:id="@+id/region_value_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/region_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/region_text_view"
+        tools:text="Europe" />
 
-        <TextView
-            android:id="@+id/subregion_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="Subregion - Northern Europe" />
+    <TextView
+        android:id="@+id/subregion_text_view"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/region_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/region_text_view"
+        tools:text="Subregion -" />
 
-        <TextView
-            android:id="@+id/languages_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="Languages - English,Irish" />
+    <TextView
+        android:id="@+id/subregion_value_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/subregion_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/subregion_text_view"
+        tools:text="Northern Europe" />
 
-        <TextView
-            android:id="@+id/currencies_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="Currencies - EUR(euro)" />
+    <TextView
+        android:id="@+id/languages_text_view"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/subregion_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/subregion_text_view"
+        tools:text="Languages -" />
 
-        <TextView
-            android:id="@+id/population_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="Population - 4449924" />
+    <TextView
+        android:id="@+id/languages_value_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/languages_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/languages_text_view"
+        tools:text="English,Irish" />
 
-        <TextView
-            android:id="@+id/car_side_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="Card Drive Side - Left" />
+    <TextView
+        android:id="@+id/currencies_text_view"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/languages_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/languages_text_view"
+        tools:text="Currencies -" />
 
-        <TextView
-            android:id="@+id/coat_of_arms_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="Coat of Arms" />
+    <TextView
+        android:id="@+id/currencies_value_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/currencies_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/currencies_text_view"
+        tools:text="EUR(euro)" />
 
-        <ImageView
-            android:id="@+id/coat_of_arms_image_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
-            android:contentDescription="@null" />
+    <TextView
+        android:id="@+id/population_text_view"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/currencies_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/currencies_text_view"
+        tools:text="Population -" />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/population_value_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/population_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/population_text_view"
+        tools:text="4449924" />
+
+    <TextView
+        android:id="@+id/car_side_text_view"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/population_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/population_text_view"
+        tools:text="Card Drive Side -" />
+
+    <TextView
+        android:id="@+id/car_side_value_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/car_side_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/car_side_text_view"
+        tools:text="Left" />
+
+    <TextView
+        android:id="@+id/coat_of_arms_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/car_side_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/car_side_text_view"
+        tools:text="Coat of Arms" />
+
+    <ImageView
+        android:id="@+id/coat_of_arms_image_view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="6dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="@+id/coat_of_arms_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/coat_of_arms_text_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
