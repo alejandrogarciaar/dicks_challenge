@@ -28,8 +28,13 @@ class CountryDetailActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         _binding = CountryDetailActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupToolbar()
         bindViewModel()
         setListeners()
+    }
+
+    private fun setupToolbar() {
+        binding.toolbar.setTitle(intent.extras?.getString(COUNTRY_NAME_KEY))
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -57,7 +62,6 @@ class CountryDetailActivity : FragmentActivity() {
             is CountryDetailUiState.ShowDetail -> {
                 with(binding) {
                     progressCircular.isVisible = false
-                    imageViewClose.isVisible = true
                 }
 
                 renderCountryDetail(state.data)
@@ -77,7 +81,9 @@ class CountryDetailActivity : FragmentActivity() {
     }
 
     private fun setListeners() {
-        binding.imageViewClose.setOnClickListener { finish() }
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun renderCountryDetail(data: CountryDetail) {
