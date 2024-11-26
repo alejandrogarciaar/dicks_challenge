@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="country_list_empty_state">It seems there are no matches for your search</string>
+    <string name="country_list_retry">Retry</string>
+</resources>

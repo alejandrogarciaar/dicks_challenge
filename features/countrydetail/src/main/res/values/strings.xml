@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="country_detail_capital">Capital</string>
+    <string name="country_detail_region">Region</string>
+    <string name="country_detail_subregion">Subregion</string>
+    <string name="country_detail_languages">Languages</string>
+    <string name="country_detail_currencies">Currencies</string>
+    <string name="country_detail_population">Population</string>
+    <string name="country_detail_car_drive_side">Car Drive Side</string>
+    <string name="country_detail_coat_at_arms"><![CDATA[<b>Coat at Arms</b>]]></string>
+    <string name="country_detail_item_placeholder"><![CDATA[<b>%1s</b> - %2s]]></string>
+    <string name="country_detail_item_number_placeholder"><![CDATA[<b>%1s</b> - %2d]]></string>
+</resources>
